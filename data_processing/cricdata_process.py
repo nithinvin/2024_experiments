@@ -20,6 +20,8 @@ while True:
                 print(tabulate(df,showindex=False,headers=['Match No', 'Match Between', 'Team', 'Batsman', 'Batsman Position', 'Dismissal', 'Runs', 'Balls', '4s', '6s', 'Strike Rate'],tablefmt='pretty'))
             elif choice==2:
                 print('\nBowler Data:\n\n')
+                df=pd.read_csv('/mnt/f/worldcup_2023_cricket_data/bowling_summary.csv')
+                print(tabulate(df,showindex=False,headers=['Match No', 'Match Between', 'Bowling team', 'Bowler name', 'Overs', 'Maidens', 'Runs', 'Wickets', 'Economy'],tablefmt='pretty'))
             elif choice==3:
                 print('Exit to main menu...')
                 break
