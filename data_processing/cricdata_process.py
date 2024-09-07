@@ -1,3 +1,5 @@
+import pandas as pd
+from tabulate import tabulate
 while True:
     print('\t\t *** Cricket Data Analysis Project *** ')
     print('\n\t\t\t1. Data Analysis')
@@ -14,6 +16,8 @@ while True:
             choice=int(input('Select your choice [1-3] : '))
             if choice==1:
                 print('\nBatsmen Data:\n\n')
+                df=pd.read_csv('/mnt/f/worldcup_2023_cricket_data/batting_summary.csv')
+                print(tabulate(df,showindex=False,headers=['Match No', 'Match Between', 'Team', 'Batsman', 'Batsman Position', 'Dismissal', 'Runs', 'Balls', '4s', '6s', 'Strike Rate'],tablefmt='pretty'))
             elif choice==2:
                 print('\nBowler Data:\n\n')
             elif choice==3:
