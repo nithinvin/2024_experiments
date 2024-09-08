@@ -16,6 +16,11 @@ def extract_teams_from_file(filename):
                 seen_matches.add(match_no)
     return matches
 
+def extract_match_data(filename, match_no):
+    df = pd.read_csv(filename)
+    match_df = df[df['Match_no'] == match_no]
+    return match_df
+
 def handle_user_menu():
     while True:
         print('\t Choose a match from world cup 2023')
@@ -23,7 +28,7 @@ def handle_user_menu():
         matches = extract_teams_from_file(filename)
         for match in matches:
             print(f"\t\tMatch {match[0]}: {match[1]} vs {match[2]}")
-        choice=int(input(f'\nSelect a match [1-{len(matches)}] : '))
+        match_number=int(input(f'\nSelect a match [1-{len(matches)}] : '))
         print('\t\t *** Cricket Data Analysis Project *** ')
         print('\n\t\t\t1. Data Analysis')
         print('\n\t\t\t2. Data Visualization')
@@ -31,20 +36,26 @@ def handle_user_menu():
         choice=int(input('Select your choice [1-3] : '))
         if choice==1:
             while True:
+                match_df = extract_match_data(filename, match_number)
                 print('\t*** CRICKET DATA ANALYSIS SYSTEM')
                 print('*'*50)
-                print('\n\t\t1. Show Batsmen data')
-                print('\n\t\t2. Show Bowler data')
+                print('\n\t\t1. Show Batsmen and runs')
+                print('\n\t\t2. Show Batsmen and strike rate')
                 print('\n\t\t3. Exit to main menu\n\n')
                 choice=int(input('Select your choice [1-3] : '))
                 if choice==1:
-                    print('\nBatsmen Data:\n\n')
-                    df=pd.read_csv('/mnt/f/worldcup_2023_cricket_data/batting_summary.csv')
-                    print(tabulate(df,showindex=False,headers=['Match No', 'Match Between', 'Team', 'Batsman', 'Batsman Position', 'Dismissal', 'Runs', 'Balls', '4s', '6s', 'Strike Rate'],tablefmt='pretty'))
+                    print('\nBatsmen and runs:\n\n')
+                    runs_columns = ['Match_no', 'Match_Between', 'Team_Innings', 'Batsman_Name', 'Batting_Position', 'Runs']
+                    match_df = match_df[runs_columns]
+                    print(tabulate(match_df,showindex=False,headers=runs_columns,tablefmt='pretty'))
+                    #print(tabulate(match_df,showindex=False,headers=['Match No', 'Match Between', 'Team', 'Batsman', 'Batsman Position', 'Dismissal', 'Runs', 'Balls', '4s', '6s', 'Strike Rate'],tablefmt='pretty'))
                 elif choice==2:
-                    print('\nBowler Data:\n\n')
-                    df=pd.read_csv('/mnt/f/worldcup_2023_cricket_data/bowling_summary.csv')
-                    print(tabulate(df,showindex=False,headers=['Match No', 'Match Between', 'Bowling team', 'Bowler name', 'Overs', 'Maidens', 'Runs', 'Wickets', 'Economy'],tablefmt='pretty'))
+                    print('\nBatsmen and strike rate:\n\n')
+                    runs_columns = ['Match_no', 'Match_Between', 'Team_Innings', 'Batsman_Name', 'Batting_Position', 'Strike_Rate']
+                    match_df = match_df[runs_columns]
+                    print(tabulate(match_df,showindex=False,headers=runs_columns,tablefmt='pretty'))
+                    #df=pd.read_csv('/mnt/f/worldcup_2023_cricket_data/bowling_summary.csv')
+                    #print(tabulate(df,showindex=False,headers=['Match No', 'Match Between', 'Bowling team', 'Bowler name', 'Overs', 'Maidens', 'Runs', 'Wickets', 'Economy'],tablefmt='pretty'))
                 elif choice==3:
                     print('Exit to main menu...')
                     break
