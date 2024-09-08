@@ -1,9 +1,29 @@
+import csv
 import pandas as pd
 from tabulate import tabulate
+
+def extract_teams_from_file(filename):
+    matches = []
+    seen_matches = set()  # Store seen match numbers to avoid duplicates
+    with open(filename, 'r') as csvfile:
+        reader = csv.reader(csvfile)
+        next(reader)  # Skip the header row
+        for row in reader:
+            match_no = row[0]
+            if match_no not in seen_matches:
+                teams = row[1].split(' vs ')
+                matches.append((match_no, teams[0], teams[1]))
+                seen_matches.add(match_no)
+    return matches
 
 def handle_user_menu():
     while True:
         print('\t Choose a match from world cup 2023')
+        filename = '/mnt/f/worldcup_2023_cricket_data/batting_summary.csv'
+        matches = extract_teams_from_file(filename)
+        for match in matches:
+            print(f"\t\tMatch {match[0]}: {match[1]} vs {match[2]}")
+        choice=int(input(f'\nSelect a match [1-{len(matches)}] : '))
         print('\t\t *** Cricket Data Analysis Project *** ')
         print('\n\t\t\t1. Data Analysis')
         print('\n\t\t\t2. Data Visualization')
