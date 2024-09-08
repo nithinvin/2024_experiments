@@ -79,6 +79,20 @@ def handle_user_menu():
                     plt.tight_layout()
                     #plt.show()
                     plt.savefig('batsmen_run.png')
+                elif choice==2:
+                    plt.figure(figsize=(12, 6))
+                    plt.plot(match_df['Batsman_Name'], match_df['Strike_Rate'], marker='o', linestyle='-', color='green')
+                    plt.title(f"Batsmen Runs for Match {match_number}")
+                    plt.xlabel('Batsman')
+                    plt.ylabel('Strike_Rate')
+                    plt.grid(True)
+                    plt.xticks(rotation=45, ha='right')
+                    plt.tight_layout()
+                    #plt.show()
+                    plt.savefig('batsmen_strike_rate.png')
+                elif choice==3:
+                    print('Exit to main menu...')
+                    break
         elif choice==3:
             print('Exit from menu...')
             break
