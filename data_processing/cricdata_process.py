@@ -1,5 +1,6 @@
 import csv
 import pandas as pd
+import matplotlib.pyplot as plt
 from tabulate import tabulate
 
 def extract_teams_from_file(filename):
@@ -61,12 +62,23 @@ def handle_user_menu():
                     break
         elif choice==2:
             while True:
+                match_df = extract_match_data(filename, match_number)
                 print('\t*** CRICKET DATA VISUALIZATION')
                 print('*'*50)
                 print('\n\t\t1. Plot Line Chart (Name and runs)')
-                print('\n\t\t2. Plot Line Chart (Name and wickets)')
+                print('\n\t\t2. Plot Line Chart (Name and strike rate)')
                 print('\n\t\t3. Exit the Program\n\n')
                 choice=int(input('Select your choice [1-3] : '))
+                if choice==1:
+                    plt.figure(figsize=(12, 6))
+                    plt.plot(match_df['Batsman_Name'], match_df['Runs'], marker='o', linestyle='-', color='green')
+                    plt.title(f"Batsmen Runs for Match {match_number}")
+                    plt.xlabel('Batsman')
+                    plt.ylabel('Runs')
+                    plt.xticks(rotation=45, ha='right')
+                    plt.tight_layout()
+                    #plt.show()
+                    plt.savefig('batsmen_run.png')
         elif choice==3:
             print('Exit from menu...')
             break
