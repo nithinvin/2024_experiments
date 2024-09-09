@@ -27,7 +27,7 @@ def serve_batsman_data_analysis(filename, match_number):
     while True:
         match_df = extract_match_data(filename, match_number)
         print('\t*** CRICKET BATTING DATA ANALYSIS ***')
-        print('*'*50)
+        print('*' * 50)
         print('\n\t\t1. Show Batsmen and runs')
         print('\n\t\t2. Show Batsmen and strike rate')
         print('\n\t\t3. Show Batsmen score card')
@@ -56,7 +56,7 @@ def serve_bowler_data_analysis(filename, match_number):
     while True:
         match_df = extract_match_data(filename, match_number)
         print('\t*** CRICKET BOWLING DATA ANALYSIS ***')
-        print('*'*50)
+        print('*' * 50)
         print('\n\t\t1. Show Bowlers, Runs and wickets')
         print('\n\t\t2. Show Bowlers, Maidens and economy')
         print('\n\t\t3. Show Bowlers score card')
@@ -84,7 +84,7 @@ def serve_batting_data_visualization(filename, match_number):
     while True:
         match_df = extract_match_data(filename, match_number)
         print('\t*** CRICKET BATTING DATA VISUALIZATION ***')
-        print('*'*50)
+        print('*' * 50)
         print('\n\t\t1. Plot Line Chart (Name and Runs)')
         print('\n\t\t2. Plot Line Chart (Name and strike rate)')
         print('\n\t\t3. Plot Bar Chart (Name and Runs)')
@@ -139,7 +139,7 @@ def serve_bowling_data_visualization(filename, match_number):
     while True:
         match_df = extract_match_data(filename, match_number)
         print('\t*** CRICKET BOWLING DATA VISUALIZATION ***')
-        print('*'*50)
+        print('*' * 50)
         print('\n\t\t1. Plot Line Chart (Name and wickets)')
         print('\n\t\t2. Plot Line Chart (Name and economy)')
         print('\n\t\t3. Plot Bar Chart (Name and wickets)')
@@ -194,7 +194,7 @@ def get_match_number(filename):
     print('\t Choose a match from world cup 2023')
     match_number = 0
     matches = extract_matches_from_file(filename)
-    while match_number < 1 or match_number > len(matches):
+    while True:
         for match in matches:
             print(f"\t\tMatch {match[0]}: {match[1]} vs {match[2]}")
         match_number=int(input(f'\nSelect a match [1-{len(matches)}] : '))
