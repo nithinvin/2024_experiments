@@ -192,10 +192,17 @@ def serve_bowling_data_visualization(filename, match_number):
 
 def get_match_number(filename):
     print('\t Choose a match from world cup 2023')
+    match_number = 0
     matches = extract_matches_from_file(filename)
-    for match in matches:
-        print(f"\t\tMatch {match[0]}: {match[1]} vs {match[2]}")
-    match_number=int(input(f'\nSelect a match [1-{len(matches)}] : '))
+    while match_number < 1 or match_number > len(matches):
+        for match in matches:
+            print(f"\t\tMatch {match[0]}: {match[1]} vs {match[2]}")
+        match_number=int(input(f'\nSelect a match [1-{len(matches)}] : '))
+        if match_number < 1 or match_number > len(matches):
+            print("\n\tInvalid match. Please select again")
+            time.sleep(2)
+        else:
+            break
     return match_number
 
 def serve_cricket_data_processing():
