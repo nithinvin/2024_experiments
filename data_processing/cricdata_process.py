@@ -142,7 +142,8 @@ def serve_bowling_data_visualization(filename, match_number):
         print('*'*50)
         print('\n\t\t1. Plot Line Chart (Name and wickets)')
         print('\n\t\t2. Plot Line Chart (Name and economy)')
-        print('\n\t\t3. Exit to the main menu\n\n')
+        print('\n\t\t3. Plot Bar Chart (Name and wickets)')
+        print('\n\t\t4. Exit to the main menu\n\n')
         choice=int(input('Select your choice [1-3] : '))
         if choice==1:
             plt.figure(figsize=(12, 6))
@@ -172,7 +173,20 @@ def serve_bowling_data_visualization(filename, match_number):
             plt.savefig(plot_file)
             print(f'\nPlotted the data. Check file {plot_file}\n\n')
             time.sleep(2)
-        elif choice==3:
+        if choice==3:
+            plt.figure(figsize=(12, 6))
+            plt.bar(match_df['Bowler_Name'], match_df['Wickets'], color='green')
+            plt.title(f"Bowler Wickets for Match {match_number}")
+            plt.ylabel('Wickets')
+            plt.grid(True)
+            plt.xticks(rotation=45, ha='right')
+            plt.tight_layout()
+            #plt.show()
+            plot_file = 'bowler_wickets_bar.png'
+            plt.savefig(plot_file)
+            print(f'\nPlotted the data. Check file {plot_file}\n\n')
+            time.sleep(2)
+        elif choice==4:
             print('Exiting to the main menu...')
             break
 
