@@ -53,8 +53,8 @@ def serve_bowler_data_analysis(filename, match_number):
         match_df = extract_match_data(filename, match_number)
         print('\t*** CRICKET DATA ANALYSIS SYSTEM ***')
         print('*'*50)
-        print('\n\t\t1. Show Bowlers and wickets')
-        print('\n\t\t2. Show Bowlers and economy')
+        print('\n\t\t1. Show Bowlers, Runs and wickets')
+        print('\n\t\t2. Show Bowlers, Maidens and economy')
         print('\n\t\t3. Exit to main menu\n\n')
         choice=int(input('Select your choice [1-3] : '))
         if choice==1:
@@ -65,7 +65,7 @@ def serve_bowler_data_analysis(filename, match_number):
             print(tabulate(match_df,showindex=False,headers=wickets_columns,tablefmt='pretty'))
         elif choice==2:
             print('\nBowlers and economy:\n\n')
-            wickets_columns = ['Match_no', 'Match_Between', 'Bowling_Team', 'Bowler_Name', 'Overs', 'Runs', 'Economy']
+            wickets_columns = ['Match_no', 'Match_Between', 'Bowling_Team', 'Bowler_Name', 'Overs', 'Maidens', 'Economy']
             match_df = match_df[wickets_columns]
             print(tabulate(match_df,showindex=False,headers=wickets_columns,tablefmt='pretty'))
         elif choice==3:
