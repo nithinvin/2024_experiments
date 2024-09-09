@@ -22,7 +22,7 @@ def extract_match_data(filename, match_no):
     match_df = df[df['Match_no'] == match_no]
     return match_df
 
-def serve_data_analysis_menu(filename, match_number):
+def serve_batsman_data_analysis(filename, match_number):
     while True:
         match_df = extract_match_data(filename, match_number)
         print('\t*** CRICKET DATA ANALYSIS SYSTEM ***')
@@ -39,11 +39,35 @@ def serve_data_analysis_menu(filename, match_number):
             #print(tabulate(match_df,showindex=False,headers=['Match No', 'Match Between', 'Team', 'Batsman', 'Batsman Position', 'Dismissal', 'Runs', 'Balls', '4s', '6s', 'Strike Rate'],tablefmt='pretty'))
         elif choice==2:
             print('\nBatsmen and strike rate:\n\n')
-            runs_columns = ['Match_no', 'Match_Between', 'Team_Innings', 'Batsman_Name', 'Batting_Position', 'Strike_Rate']
-            match_df = match_df[runs_columns]
-            print(tabulate(match_df,showindex=False,headers=runs_columns,tablefmt='pretty'))
+            strike_rate_columns = ['Match_no', 'Match_Between', 'Team_Innings', 'Batsman_Name', 'Batting_Position', 'Strike_Rate']
+            match_df = match_df[strike_rate_columns]
+            print(tabulate(match_df,showindex=False,headers=strike_rate_columns,tablefmt='pretty'))
             #df=pd.read_csv('/mnt/f/worldcup_2023_cricket_data/bowling_summary.csv')
             #print(tabulate(df,showindex=False,headers=['Match No', 'Match Between', 'Bowling team', 'Bowler name', 'Overs', 'Maidens', 'Runs', 'Wickets', 'Economy'],tablefmt='pretty'))
+        elif choice==3:
+            print('Exit to main menu...')
+            break
+
+def serve_bowler_data_analysis(filename, match_number):
+    while True:
+        match_df = extract_match_data(filename, match_number)
+        print('\t*** CRICKET DATA ANALYSIS SYSTEM ***')
+        print('*'*50)
+        print('\n\t\t1. Show Bowlers and wickets')
+        print('\n\t\t2. Show Bowlers and economy')
+        print('\n\t\t3. Exit to main menu\n\n')
+        choice=int(input('Select your choice [1-3] : '))
+        if choice==1:
+            print('\nBowlers and wickets:\n\n')
+            wickets_columns = ['Match_no', 'Match_Between', 'Bowling_Team', 'Bowler_Name', 'Overs', 'Runs', 'Wickets']
+            #print(tabulate(df,showindex=False,headers=['Match No', 'Match Between', 'Bowling team', 'Bowler name', 'Overs', 'Maidens', 'Runs', 'Wickets', 'Economy'],tablefmt='pretty'))
+            match_df = match_df[wickets_columns]
+            print(tabulate(match_df,showindex=False,headers=wickets_columns,tablefmt='pretty'))
+        elif choice==2:
+            print('\nBowlers and economy:\n\n')
+            wickets_columns = ['Match_no', 'Match_Between', 'Bowling_Team', 'Bowler_Name', 'Overs', 'Runs', 'Economy']
+            match_df = match_df[wickets_columns]
+            print(tabulate(match_df,showindex=False,headers=wickets_columns,tablefmt='pretty'))
         elif choice==3:
             print('Exit to main menu...')
             break
@@ -91,20 +115,31 @@ def get_match_number(filename):
     return match_number
 
 def serve_cricket_data_processing():
-    filename = '/mnt/f/worldcup_2023_cricket_data/batting_summary.csv'
     while True:
         print('\t\t *** Cricket Data Analysis *** ')
-        print('\n\t\t\t1. Data Analysis')
-        print('\n\t\t\t2. Data Visualization')
-        print('\n\t\t\t3. Exit the program\n')
+        print('\n\t\t\t1. Batsman Data Analysis')
+        print('\n\t\t\t2. Bowler Data Analysis')
+        print('\n\t\t\t3. Batsman Data Visualization')
+        print('\n\t\t\t4. Bowler Data Visualization')
+        print('\n\t\t\t5. Exit the program\n')
         main_choice=int(input('Select your choice [1-3] : '))
         if main_choice == 1:
+            filename = '/mnt/f/worldcup_2023_cricket_data/batting_summary.csv'
             match_number = get_match_number(filename)
-            serve_data_analysis_menu(filename, match_number)
+            serve_batsman_data_analysis(filename, match_number)
         elif main_choice == 2:
+            filename = '/mnt/f/worldcup_2023_cricket_data/bowling_summary.csv'
+            match_number = get_match_number(filename)
+            serve_bowler_data_analysis(filename, match_number)
+        elif main_choice == 3:
+            filename = '/mnt/f/worldcup_2023_cricket_data/batting_summary.csv'
             match_number = get_match_number(filename)
             serve_data_visualization_menu(filename, match_number)
-        elif main_choice == 3:
+        elif main_choice == 4:
+            filename = '/mnt/f/worldcup_2023_cricket_data/bowling_summary.csv'
+            match_number = get_match_number(filename)
+            serve_data_visualization_menu(filename, match_number)
+        elif main_choice == 5:
             print('Exiting from the main menu...')
             break
         else:
