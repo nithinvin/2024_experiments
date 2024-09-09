@@ -64,7 +64,6 @@ def serve_bowler_data_analysis(filename, match_number):
         if choice==1:
             print('\nBowlers and wickets:\n\n')
             wickets_columns = ['Match_no', 'Match_Between', 'Bowling_Team', 'Bowler_Name', 'Overs', 'Runs', 'Wickets']
-            #print(tabulate(df,showindex=False,headers=['Match No', 'Match Between', 'Bowling team', 'Bowler name', 'Overs', 'Maidens', 'Runs', 'Wickets', 'Economy'],tablefmt='pretty'))
             match_df = match_df[wickets_columns]
             print(tabulate(match_df,showindex=False,headers=wickets_columns,tablefmt='pretty'))
         elif choice==2:
@@ -80,7 +79,7 @@ def serve_bowler_data_analysis(filename, match_number):
             print('Exit to main menu...')
             break
 
-def serve_data_visualization_menu(filename, match_number):
+def serve_batting_data_visualization(filename, match_number):
     while True:
         match_df = extract_match_data(filename, match_number)
         print('\t*** CRICKET DATA VISUALIZATION ***')
@@ -102,7 +101,7 @@ def serve_data_visualization_menu(filename, match_number):
         elif choice==2:
             plt.figure(figsize=(12, 6))
             plt.plot(match_df['Batsman_Name'], match_df['Strike_Rate'], marker='o', linestyle='-', color='green')
-            plt.title(f"Batsmen Runs for Match {match_number}")
+            plt.title(f"Batsmen Strike Rate for Match {match_number}")
             plt.xlabel('Batsman')
             plt.ylabel('Strike_Rate')
             plt.grid(True)
@@ -123,6 +122,8 @@ def get_match_number(filename):
     return match_number
 
 def serve_cricket_data_processing():
+    batting_summary_file = '/mnt/f/worldcup_2023_cricket_data/batting_summary.csv'
+    bowling_summary_file = '/mnt/f/worldcup_2023_cricket_data/bowling_summary.csv'
     while True:
         print('\t\t *** Cricket Data Analysis *** ')
         print('\n\t\t\t1. Batsman Data Analysis')
@@ -132,23 +133,23 @@ def serve_cricket_data_processing():
         print('\n\t\t\t5. Exit the program\n')
         main_choice=int(input('Select your choice [1-3] : '))
         if main_choice == 1:
-            filename = '/mnt/f/worldcup_2023_cricket_data/batting_summary.csv'
+            filename = batting_summary_file
             match_number = get_match_number(filename)
             serve_batsman_data_analysis(filename, match_number)
         elif main_choice == 2:
-            filename = '/mnt/f/worldcup_2023_cricket_data/bowling_summary.csv'
+            filename = bowling_summary_file
             match_number = get_match_number(filename)
             serve_bowler_data_analysis(filename, match_number)
         elif main_choice == 3:
-            filename = '/mnt/f/worldcup_2023_cricket_data/batting_summary.csv'
+            filename = batting_summary_file
             match_number = get_match_number(filename)
-            serve_data_visualization_menu(filename, match_number)
+            serve_batting_data_visualization(filename, match_number)
         elif main_choice == 4:
-            filename = '/mnt/f/worldcup_2023_cricket_data/bowling_summary.csv'
+            filename = bowling_summary_file
             match_number = get_match_number(filename)
-            serve_data_visualization_menu(filename, match_number)
+            serve_bowling_data_visualization(filename, match_number)
         elif main_choice == 5:
-            print('Exiting from the main menu...')
+            print('Exiting the program. Have a nice day...')
             break
         else:
             print('Invalid choice')
