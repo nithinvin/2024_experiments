@@ -55,7 +55,7 @@ def serve_data_visualization_menu(filename, match_number):
         print('*'*50)
         print('\n\t\t1. Plot Line Chart (Name and runs)')
         print('\n\t\t2. Plot Line Chart (Name and strike rate)')
-        print('\n\t\t3. Exit the Program\n\n')
+        print('\n\t\t3. Exit to the main menu\n\n')
         choice=int(input('Select your choice [1-3] : '))
         if choice==1:
             plt.figure(figsize=(12, 6))
@@ -79,32 +79,33 @@ def serve_data_visualization_menu(filename, match_number):
             #plt.show()
             plt.savefig('batsmen_strike_rate.png')
         elif choice==3:
-            print('Exit to main menu...')
+            print('Exiting to the main menu...')
             break
 
-def get_main_menu_choices(filename):
+def get_match_number(filename):
     print('\t Choose a match from world cup 2023')
     matches = extract_matches_from_file(filename)
     for match in matches:
         print(f"\t\tMatch {match[0]}: {match[1]} vs {match[2]}")
     match_number=int(input(f'\nSelect a match [1-{len(matches)}] : '))
-    print('\t\t *** Cricket Data Analysis Project *** ')
-    print('\n\t\t\t1. Data Analysis')
-    print('\n\t\t\t2. Data Visualization')
-    print('\n\t\t\t3. Exit\n')
-    choice=int(input('Select your choice [1-3] : '))
-    return match_number, choice
+    return match_number
 
 def serve_cricket_data_processing():
     filename = '/mnt/f/worldcup_2023_cricket_data/batting_summary.csv'
     while True:
-        match_number, main_choice = get_main_menu_choices(filename)
+        print('\t\t *** Cricket Data Analysis *** ')
+        print('\n\t\t\t1. Data Analysis')
+        print('\n\t\t\t2. Data Visualization')
+        print('\n\t\t\t3. Exit the program\n')
+        main_choice=int(input('Select your choice [1-3] : '))
         if main_choice == 1:
+            match_number = get_match_number(filename)
             serve_data_analysis_menu(filename, match_number)
         elif main_choice == 2:
+            match_number = get_match_number(filename)
             serve_data_visualization_menu(filename, match_number)
         elif main_choice == 3:
-            print('Exit from menu...')
+            print('Exiting from the main menu...')
             break
         else:
             print('Invalid choice')
