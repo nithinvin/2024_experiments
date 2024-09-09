@@ -29,22 +29,25 @@ def serve_batsman_data_analysis(filename, match_number):
         print('*'*50)
         print('\n\t\t1. Show Batsmen and runs')
         print('\n\t\t2. Show Batsmen and strike rate')
-        print('\n\t\t3. Exit to main menu\n\n')
+        print('\n\t\t3. Show Batsmen score card')
+        print('\n\t\t4. Exit to main menu\n\n')
         choice=int(input('Select your choice [1-3] : '))
         if choice==1:
             print('\nBatsmen and runs:\n\n')
             runs_columns = ['Match_no', 'Match_Between', 'Team_Innings', 'Batsman_Name', 'Batting_Position', 'Runs']
             match_df = match_df[runs_columns]
             print(tabulate(match_df,showindex=False,headers=runs_columns,tablefmt='pretty'))
-            #print(tabulate(match_df,showindex=False,headers=['Match No', 'Match Between', 'Team', 'Batsman', 'Batsman Position', 'Dismissal', 'Runs', 'Balls', '4s', '6s', 'Strike Rate'],tablefmt='pretty'))
         elif choice==2:
             print('\nBatsmen and strike rate:\n\n')
             strike_rate_columns = ['Match_no', 'Match_Between', 'Team_Innings', 'Batsman_Name', 'Batting_Position', 'Strike_Rate']
             match_df = match_df[strike_rate_columns]
             print(tabulate(match_df,showindex=False,headers=strike_rate_columns,tablefmt='pretty'))
-            #df=pd.read_csv('/mnt/f/worldcup_2023_cricket_data/bowling_summary.csv')
-            #print(tabulate(df,showindex=False,headers=['Match No', 'Match Between', 'Bowling team', 'Bowler name', 'Overs', 'Maidens', 'Runs', 'Wickets', 'Economy'],tablefmt='pretty'))
         elif choice==3:
+            print('\nBatsmen score card:\n\n')
+            scorecard_columns = ['Match_no', 'Match_Between', 'Team_Innings', 'Batsman_Name', 'Batting_Position', 'Dismissal', 'Runs', 'Balls', '4s', '6s', 'Strike_Rate']
+            match_df = match_df[scorecard_columns]
+            print(tabulate(match_df,showindex=False,headers=scorecard_columns,tablefmt='pretty'))
+        elif choice==4:
             print('Exit to main menu...')
             break
 
@@ -55,7 +58,8 @@ def serve_bowler_data_analysis(filename, match_number):
         print('*'*50)
         print('\n\t\t1. Show Bowlers, Runs and wickets')
         print('\n\t\t2. Show Bowlers, Maidens and economy')
-        print('\n\t\t3. Exit to main menu\n\n')
+        print('\n\t\t3. Show Bowlers score card')
+        print('\n\t\t4. Exit to main menu\n\n')
         choice=int(input('Select your choice [1-3] : '))
         if choice==1:
             print('\nBowlers and wickets:\n\n')
@@ -69,6 +73,10 @@ def serve_bowler_data_analysis(filename, match_number):
             match_df = match_df[wickets_columns]
             print(tabulate(match_df,showindex=False,headers=wickets_columns,tablefmt='pretty'))
         elif choice==3:
+            print('\nBowlers score card:\n\n')
+            scorecard_columns = ['Match_no', 'Match_Between', 'Bowling_team', 'Bowler_Name', 'Overs', 'Maidens', 'Runs', 'Wickets', 'Economy']
+            print(tabulate(match_df,showindex=False,headers=scorecard_columns,tablefmt='pretty'))
+        elif choice==4:
             print('Exit to main menu...')
             break
 
