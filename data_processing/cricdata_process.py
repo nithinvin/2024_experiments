@@ -2,6 +2,7 @@ import csv
 import pandas as pd
 import matplotlib.pyplot as plt
 from tabulate import tabulate
+import time
 
 def extract_matches_from_file(filename):
     matches = []
@@ -25,7 +26,7 @@ def extract_match_data(filename, match_no):
 def serve_batsman_data_analysis(filename, match_number):
     while True:
         match_df = extract_match_data(filename, match_number)
-        print('\t*** CRICKET DATA ANALYSIS SYSTEM ***')
+        print('\t*** CRICKET BATTING DATA ANALYSIS ***')
         print('*'*50)
         print('\n\t\t1. Show Batsmen and runs')
         print('\n\t\t2. Show Batsmen and strike rate')
@@ -54,7 +55,7 @@ def serve_batsman_data_analysis(filename, match_number):
 def serve_bowler_data_analysis(filename, match_number):
     while True:
         match_df = extract_match_data(filename, match_number)
-        print('\t*** CRICKET DATA ANALYSIS SYSTEM ***')
+        print('\t*** CRICKET BOWLING DATA ANALYSIS ***')
         print('*'*50)
         print('\n\t\t1. Show Bowlers, Runs and wickets')
         print('\n\t\t2. Show Bowlers, Maidens and economy')
@@ -82,7 +83,7 @@ def serve_bowler_data_analysis(filename, match_number):
 def serve_batting_data_visualization(filename, match_number):
     while True:
         match_df = extract_match_data(filename, match_number)
-        print('\t*** CRICKET DATA VISUALIZATION ***')
+        print('\t*** CRICKET BATTING DATA VISUALIZATION ***')
         print('*'*50)
         print('\n\t\t1. Plot Line Chart (Name and runs)')
         print('\n\t\t2. Plot Line Chart (Name and strike rate)')
@@ -97,7 +98,10 @@ def serve_batting_data_visualization(filename, match_number):
             plt.xticks(rotation=45, ha='right')
             plt.tight_layout()
             #plt.show()
-            plt.savefig('batsmen_run.png')
+            plot_file = 'batsmen_run.png'
+            plt.savefig(plot_file)
+            print(f'\nPlotted the data. Check file {plot_file}\n\n')
+            time.sleep(2)
         elif choice==2:
             plt.figure(figsize=(12, 6))
             plt.plot(match_df['Batsman_Name'], match_df['Strike_Rate'], marker='o', linestyle='-', color='green')
@@ -108,7 +112,50 @@ def serve_batting_data_visualization(filename, match_number):
             plt.xticks(rotation=45, ha='right')
             plt.tight_layout()
             #plt.show()
-            plt.savefig('batsmen_strike_rate.png')
+            plot_file = 'batsmen_strike_rate.png'
+            plt.savefig(plot_file)
+            print(f'\nPlotted the data. Check file {plot_file}\n\n')
+            time.sleep(2)
+        elif choice==3:
+            print('Exiting to the main menu...')
+            break
+
+def serve_bowling_data_visualization(filename, match_number):
+    while True:
+        match_df = extract_match_data(filename, match_number)
+        print('\t*** CRICKET BOWLING DATA VISUALIZATION ***')
+        print('*'*50)
+        print('\n\t\t1. Plot Line Chart (Name and wickets)')
+        print('\n\t\t2. Plot Line Chart (Name and economy)')
+        print('\n\t\t3. Exit to the main menu\n\n')
+        choice=int(input('Select your choice [1-3] : '))
+        if choice==1:
+            plt.figure(figsize=(12, 6))
+            plt.plot(match_df['Bowler_Name'], match_df['Wickets'], marker='o', linestyle='-', color='green')
+            plt.title(f"Bowler Wickets for Match {match_number}")
+            plt.xlabel('Bowler')
+            plt.ylabel('Wickets')
+            plt.xticks(rotation=45, ha='right')
+            plt.tight_layout()
+            #plt.show()
+            plot_file = 'bowler_wickets.png'
+            plt.savefig(plot_file)
+            print(f'\nPlotted the data. Check file {plot_file}\n\n')
+            time.sleep(2)
+        elif choice==2:
+            plt.figure(figsize=(12, 6))
+            plt.plot(match_df['Bowler_Name'], match_df['Economy'], marker='o', linestyle='-', color='green')
+            plt.title(f"Bolwer Economy for Match {match_number}")
+            plt.xlabel('Bowler')
+            plt.ylabel('Economy')
+            plt.grid(True)
+            plt.xticks(rotation=45, ha='right')
+            plt.tight_layout()
+            #plt.show()
+            plot_file = 'bowler_economy.png'
+            plt.savefig(plot_file)
+            print(f'\nPlotted the data. Check file {plot_file}\n\n')
+            time.sleep(2)
         elif choice==3:
             print('Exiting to the main menu...')
             break
@@ -149,7 +196,7 @@ def serve_cricket_data_processing():
             match_number = get_match_number(filename)
             serve_bowling_data_visualization(filename, match_number)
         elif main_choice == 5:
-            print('Exiting the program. Have a nice day...')
+            print('Exiting the program. Have a nice day...\n\n')
             break
         else:
             print('Invalid choice')
