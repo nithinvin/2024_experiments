@@ -37,17 +37,17 @@ def serve_batsman_data_analysis(filename, match_number):
             print('\nBatsmen and runs:\n\n')
             runs_columns = ['Match_no', 'Match_Between', 'Team_Innings', 'Batsman_Name', 'Batting_Position', 'Runs']
             match_df = match_df[runs_columns]
-            print(tabulate(match_df,showindex=False,headers=runs_columns,tablefmt='pretty'))
+            print(tabulate(match_df, showindex=False, headers=runs_columns, tablefmt='pretty'))
         elif choice==2:
             print('\nBatsmen and strike rate:\n\n')
             strike_rate_columns = ['Match_no', 'Match_Between', 'Team_Innings', 'Batsman_Name', 'Batting_Position', 'Strike_Rate']
             match_df = match_df[strike_rate_columns]
-            print(tabulate(match_df,showindex=False,headers=strike_rate_columns,tablefmt='pretty'))
+            print(tabulate(match_df, showindex=False, headers=strike_rate_columns, tablefmt='pretty'))
         elif choice==3:
             print('\nBatsmen score card:\n\n')
             scorecard_columns = ['Match_no', 'Match_Between', 'Team_Innings', 'Batsman_Name', 'Batting_Position', 'Dismissal', 'Runs', 'Balls', '4s', '6s', 'Strike_Rate']
             match_df = match_df[scorecard_columns]
-            print(tabulate(match_df,showindex=False,headers=scorecard_columns,tablefmt='pretty'))
+            print(tabulate(match_df, showindex=False, headers=scorecard_columns, tablefmt='pretty'))
         elif choice==4:
             print('Exit to main menu...')
             break
@@ -66,16 +66,16 @@ def serve_bowler_data_analysis(filename, match_number):
             print('\nBowlers and wickets:\n\n')
             wickets_columns = ['Match_no', 'Match_Between', 'Bowling_Team', 'Bowler_Name', 'Overs', 'Runs', 'Wickets']
             match_df = match_df[wickets_columns]
-            print(tabulate(match_df,showindex=False,headers=wickets_columns,tablefmt='pretty'))
+            print(tabulate(match_df, showindex=False, headers=wickets_columns, tablefmt='pretty'))
         elif choice==2:
             print('\nBowlers and economy:\n\n')
             wickets_columns = ['Match_no', 'Match_Between', 'Bowling_Team', 'Bowler_Name', 'Overs', 'Maidens', 'Economy']
             match_df = match_df[wickets_columns]
-            print(tabulate(match_df,showindex=False,headers=wickets_columns,tablefmt='pretty'))
+            print(tabulate(match_df, showindex=False, headers=wickets_columns, tablefmt='pretty'))
         elif choice==3:
             print('\nBowlers score card:\n\n')
             scorecard_columns = ['Match_no', 'Match_Between', 'Bowling_team', 'Bowler_Name', 'Overs', 'Maidens', 'Runs', 'Wickets', 'Economy']
-            print(tabulate(match_df,showindex=False,headers=scorecard_columns,tablefmt='pretty'))
+            print(tabulate(match_df, showindex=False, headers=scorecard_columns, tablefmt='pretty'))
         elif choice==4:
             print('Exit to main menu...')
             break
@@ -141,8 +141,8 @@ def serve_batsman_data_operations(filename, match_number):
         print('\nBatsmen score card:\n\n')
         scorecard_columns = ['Match_no', 'Match_Between', 'Team_Innings', 'Batsman_Name', 'Batting_Position', 'Dismissal', 'Runs', 'Balls', '4s', '6s', 'Strike_Rate']
         match_df = match_df[scorecard_columns]
-        print(tabulate(match_df,showindex=False,headers=scorecard_columns,tablefmt='pretty'))
-        top_scorers = match_df.nlargest(5, 'Runs')
+        print(tabulate(match_df, showindex=False, headers=scorecard_columns, tablefmt='pretty'))
+        top_scorers = match_df.nlargest(10, 'Runs')
         print('\t*** CRICKET BATTING DATA OPERATIONS ***')
         print('*' * 50)
         print('\n\t\t1. Add some top scorers')
@@ -152,14 +152,18 @@ def serve_batsman_data_operations(filename, match_number):
         print('\n\t\t5. Exit to main menu\n\n')
         choice=int(input('Select your choice [1-5] : '))
         if choice==1:
-            num_top_scorers = int(input('Number of top scorers(Maximum 5): '))
+            num_to_add = int(input('Number of top scorers to add from top 10: '))
             new_df = pd.DataFrame()
-            for batsman in range(num_top_scorers):
+            for batsman in range(num_to_add):
                 new_df = pd.concat([new_df, top_scorers.iloc[batsman].to_frame().transpose()])
-            print(tabulate(new_df,showindex=False,headers=scorecard_columns,tablefmt='pretty'))
+            print(tabulate(new_df, showindex=False, headers=scorecard_columns, tablefmt='pretty'))
             time.sleep(2)
         elif choice==2:
-            pass
+            num_to_remove = int(input('Number of top scorers to remove out of top 10: '))
+            print(f'len = {len(top_scorers)}')
+            top_scorers.drop(top_scorers.index[[10 - num_to_remove, 10 - 1]], inplace=True)
+            print(tabulate(top_scorers, showindex=False, headers=scorecard_columns, tablefmt='pretty'))
+            time.sleep(2)
         elif choice==3:
             pass
         elif choice==4:
