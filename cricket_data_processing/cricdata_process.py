@@ -148,7 +148,7 @@ def serve_batsman_data_operations(filename, match_number):
         print('\n\t\t1. Add some top scorers')
         print('\n\t\t2. Remove some top scorers')
         print('\n\t\t3. Add boundaries data')
-        print('\n\t\t4. Remove boundaries data')
+        print('\n\t\t4. Remove a column from data')
         print('\n\t\t5. Exit to main menu\n\n')
         choice=int(input('Select your choice [1-5] : '))
         if choice==1:
@@ -165,7 +165,10 @@ def serve_batsman_data_operations(filename, match_number):
             print(tabulate(top_scorers, showindex=False, headers=scorecard_columns, tablefmt='pretty'))
             time.sleep(2)
         elif choice==3:
-            pass
+            match_df['boundaries'] = match_df['4s'] + match_df['6s']
+            scorecard_columns = ['Match_no', 'Match_Between', 'Team_Innings', 'Batsman_Name', 'Batting_Position', 'Dismissal', 'Runs', 'Balls', '4s', '6s', 'Strike_Rate', 'boundaries']
+            print(tabulate(match_df, showindex=False, headers=scorecard_columns, tablefmt='pretty'))
+            time.sleep(2)
         elif choice==4:
             col = input('Enter column name to remove: ')
             match_df = match_df.drop(col, axis=1)
