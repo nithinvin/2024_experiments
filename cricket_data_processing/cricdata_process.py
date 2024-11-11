@@ -135,6 +135,9 @@ def serve_batting_data_visualization(filename, match_number):
             print('Exiting to the main menu...')
             break
 
+def serve_batsman_data_operations(filename, match_number):
+    pass
+
 def serve_bowling_data_visualization(filename, match_number):
     while True:
         match_df = extract_match_data(filename, match_number)
@@ -206,14 +209,15 @@ def get_match_number(filename):
     return match_number
 
 def serve_cricket_data_processing():
-    batting_summary_file = '/mnt/f/worldcup_2023_cricket_data/batting_summary.csv'
-    bowling_summary_file = '/mnt/f/worldcup_2023_cricket_data/bowling_summary.csv'
+    batting_summary_file = './batting_summary.csv'
+    bowling_summary_file = './bowling_summary.csv'
     while True:
         print('\t\t *** Cricket Data Analysis *** ')
         print('\n\t\t\t1. Batsman Data Analysis')
         print('\n\t\t\t2. Bowler Data Analysis')
         print('\n\t\t\t3. Batsman Data Visualization')
         print('\n\t\t\t4. Bowler Data Visualization')
+        print('\n\t\t\t5. Batsman Data Operations')
         print('\n\t\t\t5. Exit the program\n')
         main_choice=int(input('Select your choice [1-3] : '))
         if main_choice == 1:
@@ -233,6 +237,10 @@ def serve_cricket_data_processing():
             match_number = get_match_number(filename)
             serve_bowling_data_visualization(filename, match_number)
         elif main_choice == 5:
+            filename = batting_summary_file
+            match_number = get_match_number(filename)
+            serve_batsman_data_operations(filename, match_number)
+        elif main_choice == 6:
             print('\nExiting the program. Have a nice day...\n\n')
             break
         else:
