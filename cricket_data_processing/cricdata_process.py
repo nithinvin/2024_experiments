@@ -167,7 +167,10 @@ def serve_batsman_data_operations(filename, match_number):
         elif choice==3:
             pass
         elif choice==4:
-            pass
+            col = input('Enter column name to remove: ')
+            top_scorers = top_scorers.drop(col, axis=1)
+            print(tabulate(top_scorers, tablefmt='pretty'))
+            time.sleep(2)
         elif choice==5:
             print('Exit to main menu...')
             break
