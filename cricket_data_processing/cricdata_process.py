@@ -32,7 +32,7 @@ def serve_batsman_data_analysis(filename, match_number):
         print('\n\t\t2. Show Batsmen and strike rate')
         print('\n\t\t3. Show Batsmen score card')
         print('\n\t\t4. Exit to main menu\n\n')
-        choice=int(input('Select your choice [1-3] : '))
+        choice=int(input('Select your choice [1-4] : '))
         if choice==1:
             print('\nBatsmen and runs:\n\n')
             runs_columns = ['Match_no', 'Match_Between', 'Team_Innings', 'Batsman_Name', 'Batting_Position', 'Runs']
@@ -61,7 +61,7 @@ def serve_bowler_data_analysis(filename, match_number):
         print('\n\t\t2. Show Bowlers, Maidens and economy')
         print('\n\t\t3. Show Bowlers score card')
         print('\n\t\t4. Exit to main menu\n\n')
-        choice=int(input('Select your choice [1-3] : '))
+        choice=int(input('Select your choice [1-4] : '))
         if choice==1:
             print('\nBowlers and wickets:\n\n')
             wickets_columns = ['Match_no', 'Match_Between', 'Bowling_Team', 'Bowler_Name', 'Overs', 'Runs', 'Wickets']
@@ -89,7 +89,7 @@ def serve_batting_data_visualization(filename, match_number):
         print('\n\t\t2. Plot Line Chart (Name and strike rate)')
         print('\n\t\t3. Plot Bar Chart (Name and Runs)')
         print('\n\t\t4. Exit to the main menu\n\n')
-        choice=int(input('Select your choice [1-3] : '))
+        choice=int(input('Select your choice [1-4] : '))
         if choice==1:
             plt.figure(figsize=(12, 6))
             plt.plot(match_df['Batsman_Name'], match_df['Runs'], marker='o', linestyle='-', color='green')
@@ -136,7 +136,37 @@ def serve_batting_data_visualization(filename, match_number):
             break
 
 def serve_batsman_data_operations(filename, match_number):
-    pass
+    while True:
+        match_df = extract_match_data(filename, match_number)
+        print('\nBatsmen score card:\n\n')
+        scorecard_columns = ['Match_no', 'Match_Between', 'Team_Innings', 'Batsman_Name', 'Batting_Position', 'Dismissal', 'Runs', 'Balls', '4s', '6s', 'Strike_Rate']
+        match_df = match_df[scorecard_columns]
+        print(tabulate(match_df,showindex=False,headers=scorecard_columns,tablefmt='pretty'))
+        top_scorers = match_df.nlargest(5, 'Runs')
+        print('\t*** CRICKET BATTING DATA OPERATIONS ***')
+        print('*' * 50)
+        print('\n\t\t1. Add some top scorers')
+        print('\n\t\t2. Remove some top scorers')
+        print('\n\t\t3. Add boundaries data')
+        print('\n\t\t4. Remove boundaries data')
+        print('\n\t\t5. Exit to main menu\n\n')
+        choice=int(input('Select your choice [1-5] : '))
+        if choice==1:
+            num_top_scorers = int(input('Number of top scorers(Maximum 5): '))
+            new_df = pd.DataFrame()
+            for batsman in range(num_top_scorers):
+                new_df = pd.concat([new_df, top_scorers.iloc[batsman].to_frame().transpose()])
+            print(tabulate(new_df,showindex=False,headers=scorecard_columns,tablefmt='pretty'))
+            time.sleep(2)
+        elif choice==2:
+            pass
+        elif choice==3:
+            pass
+        elif choice==4:
+            pass
+        elif choice==5:
+            print('Exit to main menu...')
+            break
 
 def serve_bowling_data_visualization(filename, match_number):
     while True:
@@ -147,7 +177,7 @@ def serve_bowling_data_visualization(filename, match_number):
         print('\n\t\t2. Plot Line Chart (Name and economy)')
         print('\n\t\t3. Plot Bar Chart (Name and wickets)')
         print('\n\t\t4. Exit to the main menu\n\n')
-        choice=int(input('Select your choice [1-3] : '))
+        choice=int(input('Select your choice [1-4] : '))
         if choice==1:
             plt.figure(figsize=(12, 6))
             plt.plot(match_df['Bowler_Name'], match_df['Wickets'], marker='o', linestyle='-', color='green')
@@ -218,8 +248,8 @@ def serve_cricket_data_processing():
         print('\n\t\t\t3. Batsman Data Visualization')
         print('\n\t\t\t4. Bowler Data Visualization')
         print('\n\t\t\t5. Batsman Data Operations')
-        print('\n\t\t\t5. Exit the program\n')
-        main_choice=int(input('Select your choice [1-3] : '))
+        print('\n\t\t\t6. Exit the program\n')
+        main_choice=int(input('Select your choice [1-6] : '))
         if main_choice == 1:
             filename = batting_summary_file
             match_number = get_match_number(filename)
